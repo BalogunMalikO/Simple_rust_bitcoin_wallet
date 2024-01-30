@@ -1,6 +1,6 @@
 # Simple_rust_bitcoin_wallet
 
-This is a simple bitcoin wallet built with rust
+This is a simple bitcoin wallet built with rust and bdk connected to the electrum server
 
 # Features
 This wallet can do the following:
@@ -9,7 +9,7 @@ This wallet can do the following:
 <li> Save bitcoin
   
  # Crate Used
- Bdk
+ Bdk version 0.29
   
   
   
