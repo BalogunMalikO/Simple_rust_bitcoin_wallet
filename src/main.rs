@@ -28,11 +28,11 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     println!("Address: {}", wallet.get_address(AddressIndex::New)?);
     let faucet_address = Address::from_str("mwZPfTMiVQEzXTEhwLmi5dcmq7EvcDqLGr")?;
 
-
+//transaction builder
     let mut tx_builder = wallet.build_tx();
         tx_builder
         .drain_wallet()
-        .drain_to(faucet_address.script_pubkey());
+        .drain_to(faucet_address.payload.script_pubkey());
 
     let (mut psbt, tx_details) = tx_builder.finish()?;
 
@@ -40,10 +40,8 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let finalized = wallet.sign(&mut psbt, SignOptions::default())?;
     assert!(finalized, "Tx has not been finalized");
     println!("Transaction Signed: {}", finalized);
-    let finalized = wallet.sign(&mut psbt, SignOptions::default())?;
-    assert!(finalized, "Tx has not been finalized");
-    println!("Transaction Signed: {}", finalized);
-
+    
+    
     let raw_transaction = psbt.extract_tx();
     let txid = raw_transaction.txid();
     blockchain.broadcast(&raw_transaction)?;
